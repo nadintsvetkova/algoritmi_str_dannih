@@ -87,3 +87,4 @@ time_2 = (timeit.timeit(stmt=testcode_1, setup=import_module_2, number=1000) / 1
 print('Время выполнения модуля numpsy:', perevod(str(time_2)), 'секунды.')
 razn = abs(time_2 - time)
 print('Разница во времени составляет ' + perevod(str(razn)) + ' секунды.')
+
