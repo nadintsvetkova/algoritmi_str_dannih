@@ -1,0 +1,63 @@
+import copy
+
+def trans(a, n, m):
+    b = [0] * m
+    for k in range(m):
+        b[k] = [k] * n
+    for i in range(n):
+        for j in range(m):
+            b[j][i] = a[i][j]
+    return b     
+
+def multi(a, n1, m1, b, n2, m2):
+    if m1 != n2:
+        return False
+    c = [0] * n1
+    b = trans(b, n2, m2)
+    for k1 in range(n1):
+        c[k1] = [0] * m2
+    for i in range(n1):
+        for j in range(m2):
+            for k in range(m1):
+                c[i][j] += a[i][k] * b[j][k]
+    return c
+    
+def rang(a, n, m):
+  res = n
+  c = copy.deepcopy(a)
+  d = copy.deepcopy(a)
+  for i in range(n):
+      for j in range(i + 1, n):
+          s = [1] * m
+          d = copy.deepcopy(c)
+          for k in range(i, m):                                                          
+              c[i][k] = c[i][k] * d[j][i]
+              c[j][k] = d[j][k] * d[i][i]
+          b = 0
+          for k1 in range(m):
+              s[k1] = c[i][k1] - c[j][k1]
+              if s[k1] == 0:
+                  b += 1
+          c[j] = s
+          if b == m:
+              res -= 1
+  if res == 0:
+      res = 1        
+  return res
+  
+n, m = input().split()
+n = int(n)
+m = int(m)
+a = [0] * n
+for i in range(n):
+    s = []
+    s = input().split()
+    for j in range(m):
+        s[j] = int(s[j])
+    a[i] = s
+
+b = [[0, 1], [2, 3], [4, 5]]
+
+print("Транспонирование", trans(a, n, m))
+print("Умножение", multi(a, n, m, b, 3, 2))
+print("Ранг матрицы", rang(a, n, m))
