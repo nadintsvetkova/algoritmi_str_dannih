@@ -63,63 +63,6 @@ def rang(a, n, m):
         res = 1        
     return res
 
-
-def opr(a, n):
-    res = 0
-    if n == 2:
-        res = a[0][0] * a[1][1] - a[0][1] * a[1][0]
-        return res
-    elif n == 1:
-        res = a[0][0]
-        return res
-    elif n == 3:
-        for i in range(n):
-            k = 1
-            for j in range(n):
-                k *= a[j][(i + j) % n]
-            res += k
-            k1 = 1
-            for j in range(n):
-                k1 *= a[j][(n * n - 1 - i - j) % n]
-            res -= k1
-        return res
-        
-
-def sous(a, n):
-    a = trans(a, n, n)
-    d = copy.deepcopy(a)
-    c = [1] * (n - 1)
-    for i in range(n - 1):
-        c[i] = [i] * (n - 1)
-    for i in range(n):
-        for j in range(n):
-            for i1 in range(n):
-                for j1 in range(n):
-                    if i1 < i:
-                        if j1 < j:
-                            c[i1][j1] = a[i1][j1]
-                        if j1 > j:
-                            c[i1][j1 - 1] = a[i1][j1]
-                    if i1 > i:
-                        if j1 < j:
-                            c[i1 - 1][j1] = a[i1][j1]
-                        if j1 > j:
-                            c[i1 - 1][j1 - 1] = a[i1][j1]
-            d[i][j] = opr(c, n - 1) * ((-1) ** (i + j))
-    return d                
-
-
-
-def reverse(a, n):
-    b = sous(a, n)
-    if opr(a, n) == 0:
-        return False
-    else:
-        k = 1 / opr(a, n)
-        for i in range(n):
-            for j in range(n):
-                b[i][j] *= k
-        return b
         
 n, m = input().split()
 n = int(n)
