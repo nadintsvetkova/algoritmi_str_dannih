@@ -1,0 +1,80 @@
+import numpy as np
+
+def o3n(a):
+    n = len(a)
+    maxx = -10000
+    minn = 10000
+    summ = 0
+    for i in range(n):
+        if a[i] <= minn:
+            minn = a[i]
+    for i in range(n):
+        if a[i] >= maxx:
+            maxx = a[i]
+    for i in range(n):
+        summ += a[i]
+    return minn, maxx, summ
+
+def onlogn(a, aso):
+    b = len(a)
+    c = []
+    for n in (a):
+        i = 0
+        j = b
+        m = b // 2
+        while j - i > 0:
+            if n == aso[m]:
+                c.append(m)
+                break
+            elif n < aso[m]:
+                j = m
+                m = (j + i) // 2
+            elif n > aso[m]:
+                i = m
+                m = (i + j) // 2
+    return c
+
+def onfact(n):
+    if n == 0:
+        return 1
+    else:
+        return(onfact(n - 1) * n)
+
+def on3(a, c):
+    n = len(a)
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                c[i][j][k] = a[i] + a[j] + a[k]
+    return c
+
+def o3logn(a, aso):
+    b = len(a)
+    c = []
+    for n in (a[0:3]):
+        i = 0
+        j = b
+        m = b // 2
+        while j - i > 0:
+            if n == aso[m]:
+                c.append(m)
+                break
+            elif n < aso[m]:
+                j = m
+                m = (j + i) // 2
+            elif n > aso[m]:
+                i = m
+                m = (i + j) // 2
+    return c    
+
+a = [int(x) for x in input().split()]
+#o1 = o3n(a)
+aso = sorted(a)
+print(aso)
+print("min:", o3n(a)[0], "max:", o3n(a)[1], "sum:", o3n(a)[2])
+print("log1", onlogn(a, aso))
+n1 = int(input())
+print(onfact(n1))
+c = np.arange(n1 ** 3).reshape(n1, n1, n1)
+print(on3(a, c))
+print("log", o3logn(a, aso))
